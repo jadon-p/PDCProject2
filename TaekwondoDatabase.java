@@ -23,18 +23,20 @@ public class TaekwondoDatabase {
             conn = DriverManager.getConnection(url, dbUser, dbPass);
             Statement statement = conn.createStatement();
             String tableName = "studentDetails";
+
             if (!checkTableExisting(tableName) && !checkTableExisting("littleKiwi") && !checkTableExisting("tiger") && !checkTableExisting("dragon") && !checkTableExisting("adults") && !checkTableExisting("uniformList")) {
-                statement.executeUpdate("CREATE TABLE " + tableName + " (studentID INT, name VARCHAR(30), dateOfBirth VARCHAR(10), email VARCHAR(30), phone INT, belt VARCHAR(12))");
+                statement.executeUpdate("CREATE TABLE " + tableName + " (name VARCHAR(40), dateOfBirth VARCHAR(11), email VARCHAR(50), phone INT, belt VARCHAR(13), joiningDate VARCHAR(11))");
                 statement.executeUpdate("CREATE TABLE littleKiwi (name VARCHAR (30))");
                 statement.executeUpdate("CREATE TABLE tiger (name VARCHAR (30))");
                 statement.executeUpdate("CREATE TABLE dragon (name VARCHAR (30))");
                 statement.executeUpdate("CREATE TABLE adults (name VARCHAR (30))");
                 statement.executeUpdate("CREATE TABLE uniformList (name VARCHAR (30), size INT)");
+            } else {
+                System.out.println("Tables exists");
             }
             statement.close();
         } catch (SQLException e) {
             System.out.println(e);
-
         }
     }
 
@@ -61,7 +63,7 @@ public class TaekwondoDatabase {
         boolean studentFound = false;
         try {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT name FROM studentDetails" + "WHERE name = '" + name + "'");
+            ResultSet rs = statement.executeQuery("SELECT name FROM studentDetails WHERE name = '" + name.toUpperCase() + "'");
             if (rs.next()) {
                 System.out.println("Student already exists!");
                 studentFound = true;
@@ -72,7 +74,17 @@ public class TaekwondoDatabase {
         return studentFound;
     }
 
-    public void saveStudent() {
+    public void saveStudent(String name, String dob, String email, int phone, String belt, String joiningDate, String chosenClass) {
+        Statement statement;
+        try {
+            statement = conn.createStatement();
+            statement.executeUpdate("INSERT INTO studentDetails VALUES('" + name.toUpperCase() + "','" + dob + "','" + email + "'," + phone + ",'" + belt + "','" + joiningDate + "')");
+            statement.executeUpdate("INSERT INTO " + chosenClass + " VALUES('" + name + "')");
+            System.out.println("Student added");
+            statement.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
     }
 
     public void removeStudent() {

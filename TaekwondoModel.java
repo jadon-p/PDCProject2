@@ -11,8 +11,6 @@ public class TaekwondoModel extends Observable {
     public TaekwondoData data;
     public TaekwondoDatabase database;
 
-    public String name;
-
     public TaekwondoModel() {
         this.database = new TaekwondoDatabase();
         this.database.dbSetup();
@@ -49,10 +47,10 @@ public class TaekwondoModel extends Observable {
         this.notifyObservers(this.data);
     }
 
-    public void saveStudent() {
-        boolean studentFound = this.database.checkName(data.name);
+    public void saveStudent(String name, String dob, String email, int phone, String belt, String joiningDate, String chosenClass){
+        boolean studentFound = this.database.checkName(name);
         if (!studentFound) {
-            this.database.saveStudent();
+            this.database.saveStudent(name,dob,email,phone,belt,joiningDate,chosenClass);
             data.studentSaved = true;
             this.setChanged();
             this.notifyObservers(this.data);

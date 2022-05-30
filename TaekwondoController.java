@@ -2,6 +2,7 @@ package src;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
 /**
  *
@@ -34,7 +35,14 @@ public class TaekwondoController implements ActionListener {
         } else if (command.matches("Return to Menu")) {
             this.model.openMenu();
         } else if (command.matches("Save Student")) {
-            this.model.saveStudent();
+            String name = this.view.addName.getText();
+            String dateOfBirth = this.view.addDOB.getText();
+            String email = this.view.addEmail.getText();
+            int phone = Integer.parseInt(this.view.addPhone.getText());
+            String belt = (String) this.view.beltComboBox.getSelectedItem();
+            String joiningDate = LocalDate.now().toString();
+            String chosenClass = (String) this.view.classComboBox.getSelectedItem();
+            this.model.saveStudent(name, dateOfBirth, email, phone, belt, joiningDate, chosenClass);
         }
     }
 }

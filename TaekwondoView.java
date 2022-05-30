@@ -32,16 +32,16 @@ public class TaekwondoView extends JFrame implements Observer {
     private final JButton addUniform = new JButton("Add Uniform Order");
     private final JButton deleteUniform = new JButton("Delete Uniform Order");
 
-    private final JTextField addName = new JTextField(30);
-    private final JTextField addDOB = new JTextField(10);
-    private final JTextField addEmail = new JTextField(30);
-    private final JTextField addPhone = new JTextField(10);
-    private final JTextField studentSearch = new JTextField(30);
-    private final JTextField uniformOrder = new JTextField(30);
+    public JTextField addName;
+    public JTextField addDOB;
+    public JTextField addEmail;
+    public JTextField addPhone;
+    public JTextField studentSearch;
+    public JTextField uniformOrder;
 
-    private final JComboBox beltComboBox = new JComboBox();
-    private final JComboBox classComboBox = new JComboBox();
-    private final JComboBox detailComboBox = new JComboBox();
+    public final JComboBox beltComboBox = new JComboBox();
+    public final JComboBox classComboBox = new JComboBox();
+    public final JComboBox detailComboBox = new JComboBox();
 
     public TaekwondoView() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,6 +54,28 @@ public class TaekwondoView extends JFrame implements Observer {
         this.menuPanel.add(quitButton);
         this.add(menuPanel);
         this.setVisible(true);
+
+        beltComboBox.addItem("Yellow Tip");
+        beltComboBox.addItem("Yellow");
+        beltComboBox.addItem("Orange");
+        beltComboBox.addItem("Green");
+        beltComboBox.addItem("Blue");
+        beltComboBox.addItem("Purple");
+        beltComboBox.addItem("Brown");
+        beltComboBox.addItem("Red");
+        beltComboBox.addItem("Black Tip");
+        beltComboBox.addItem("Black");
+
+        classComboBox.addItem("LittleKiwi");
+        classComboBox.addItem("Dragon");
+        classComboBox.addItem("Tiger");
+        classComboBox.addItem("Adults");
+
+        detailComboBox.addItem("Name");
+        detailComboBox.addItem("Date of Birth");
+        detailComboBox.addItem("Email");
+        detailComboBox.addItem("Phone");
+        detailComboBox.addItem("Belt level");
     }
 
     private void menu() {
@@ -83,6 +105,10 @@ public class TaekwondoView extends JFrame implements Observer {
         addBeltLabel.setFont(new Font("ARIAL", Font.PLAIN, 25));
         JLabel addClassLabel = new JLabel("Select Class from list:");
         addClassLabel.setFont(new Font("ARIAL", Font.PLAIN, 25));
+        addName = new JTextField(40);
+        addDOB = new JTextField(11);
+        addEmail = new JTextField(50);
+        addPhone = new JTextField(11);
         JPanel addStuPanel = new JPanel();
         addStuPanel.setLayout(layout);
         layout.setVgap(5);
@@ -96,23 +122,8 @@ public class TaekwondoView extends JFrame implements Observer {
         addStuPanel.add(addPhone);
         addStuPanel.add(addBeltLabel);
         addStuPanel.add(beltComboBox);
-        beltComboBox.addItem("White");
-        beltComboBox.addItem("Yellow Tip");
-        beltComboBox.addItem("Yellow");
-        beltComboBox.addItem("Orange");
-        beltComboBox.addItem("Green");
-        beltComboBox.addItem("Blue");
-        beltComboBox.addItem("Purple");
-        beltComboBox.addItem("Brown");
-        beltComboBox.addItem("Red");
-        beltComboBox.addItem("Black Tip");
-        beltComboBox.addItem("Black");
         addStuPanel.add(addClassLabel);
         addStuPanel.add(classComboBox);
-        classComboBox.addItem("Little Kiwi");
-        classComboBox.addItem("Dragon");
-        classComboBox.addItem("Tiger");
-        classComboBox.addItem("Adults");
         addStuPanel.add(saveButton);
         addStuPanel.add(backButton);
         this.getContentPane().removeAll();
@@ -124,16 +135,12 @@ public class TaekwondoView extends JFrame implements Observer {
     public void editStudentMenu() {
         JLabel editStuMsg = new JLabel("Enter Student Name to Edit");
         JLabel edtitDetailLabel = new JLabel("Select detail to edit from list:");
+        studentSearch = new JTextField(30);
         JPanel editStuPanel = new JPanel();
         editStuPanel.setLayout(new GridLayout(0, 1));
         editStuPanel.add(editStuMsg);
         editStuPanel.add(studentSearch);
         editStuPanel.add(edtitDetailLabel);
-        detailComboBox.addItem("Name");
-        detailComboBox.addItem("Date of Birth");
-        detailComboBox.addItem("Email");
-        detailComboBox.addItem("Phone");
-        detailComboBox.addItem("Belt level");
         editStuPanel.add(detailComboBox);
         editStuPanel.add(confirmEditButton);
         editStuPanel.add(backButton);
@@ -151,10 +158,6 @@ public class TaekwondoView extends JFrame implements Observer {
         checkStuPanel.setLayout(new GridLayout(0, 1));
         checkStuPanel.add(checkStuList);
         checkStuPanel.add(classComboBox);
-        classComboBox.addItem("Little Kiwi");
-        classComboBox.addItem("Dragon");
-        classComboBox.addItem("Tiger");
-        classComboBox.addItem("Adults");
         checkStuPanel.add(confirmCheckButton);
         checkStuPanel.add(stuList);
         checkStuPanel.add(backButton);
@@ -168,6 +171,7 @@ public class TaekwondoView extends JFrame implements Observer {
         JLabel checkUniList = new JLabel("Check Uniform List");
         JLabel uniformList = new JLabel("(This is where the uniform orders will show)");
         JLabel uniformOrderLabel = new JLabel("Enter uniform order you wish to add/delete");
+        uniformOrder = new JTextField(30);
         JPanel checkUniPanel = new JPanel();
         checkUniPanel.setLayout(new GridLayout(0, 1));
         checkUniPanel.add(checkUniList);
@@ -191,6 +195,10 @@ public class TaekwondoView extends JFrame implements Observer {
         this.quitButton.addActionListener(listener);
         this.backButton.addActionListener(listener);
         this.saveButton.addActionListener(listener);
+        this.confirmCheckButton.addActionListener(listener);
+        this.confirmEditButton.addActionListener(listener);
+        this.addUniform.addActionListener(listener);
+        this.deleteUniform.addActionListener(listener);
     }
 
     private void quitApp() {
