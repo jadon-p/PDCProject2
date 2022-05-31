@@ -49,6 +49,9 @@ public class TaekwondoController implements ActionListener {
             String detail = (String) this.view.detailComboBox.getSelectedItem();
             String newDetail = this.view.detailInput.getText();
             this.model.editStudentDetail(name, detail, newDetail);
+        } else if (command.matches("Check Class")) {
+            String desiredClass = (String) this.view.classComboBox.getSelectedItem();
+            this.model.checkClassList(desiredClass);
         }
     }
 }

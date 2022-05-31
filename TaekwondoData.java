@@ -24,4 +24,7 @@ public class TaekwondoData {
     public boolean didQuit = false;
     public boolean studentSaved = false;
     public boolean studentEdited = false;
+    public boolean classFound = false;
+
+    public String classList = "";
 }

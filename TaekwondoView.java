@@ -44,6 +44,8 @@ public class TaekwondoView extends JFrame implements Observer {
     public final JComboBox classComboBox = new JComboBox();
     public final JComboBox detailComboBox = new JComboBox();
 
+    public JLabel stuList = new JLabel("(Student List will appear here)");
+
     public TaekwondoView() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 800);
@@ -158,7 +160,6 @@ public class TaekwondoView extends JFrame implements Observer {
 
     public void checkStudentListMenu() {
         JLabel checkStuList = new JLabel("Check Student List");
-        JLabel stuList = new JLabel("(Student List will appear here)");
         JPanel checkStuPanel = new JPanel();
         checkStuPanel.setLayout(new GridLayout(0, 1));
         checkStuPanel.add(checkStuList);
@@ -244,6 +245,10 @@ public class TaekwondoView extends JFrame implements Observer {
         } else if (data.studentSaved) {
             this.menu();
             data.studentEdited = false;
+        } else if (data.classFound) {
+            stuList.setText(data.classList);
+            this.checkStudentListMenu();
+            data.classFound = false;
         }
     }
 }

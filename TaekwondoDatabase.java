@@ -27,8 +27,8 @@ public class TaekwondoDatabase {
             if (!checkTableExisting(tableName) && !checkTableExisting("littleKiwi") && !checkTableExisting("tiger") && !checkTableExisting("dragon") && !checkTableExisting("adults") && !checkTableExisting("uniformList")) {
                 statement.executeUpdate("CREATE TABLE " + tableName + " (name VARCHAR(40), dateOfBirth VARCHAR(11), email VARCHAR(50), phone INT, belt VARCHAR(13), joiningDate VARCHAR(11))");
                 statement.executeUpdate("CREATE TABLE littleKiwi (name VARCHAR (30))");
-                statement.executeUpdate("CREATE TABLE tiger (name VARCHAR (30))");
                 statement.executeUpdate("CREATE TABLE dragon (name VARCHAR (30))");
+                statement.executeUpdate("CREATE TABLE tiger (name VARCHAR (30))");
                 statement.executeUpdate("CREATE TABLE adults (name VARCHAR (30))");
                 statement.executeUpdate("CREATE TABLE uniformList (name VARCHAR (30), size INT)");
             } else {
@@ -79,7 +79,7 @@ public class TaekwondoDatabase {
         try {
             statement = conn.createStatement();
             statement.executeUpdate("INSERT INTO studentDetails VALUES('" + name.toUpperCase() + "','" + dob + "','" + email + "'," + phone + ",'" + belt + "','" + joiningDate + "')");
-            statement.executeUpdate("INSERT INTO " + chosenClass + " VALUES('" + name + "')");
+            statement.executeUpdate("INSERT INTO " + chosenClass + " VALUES('" + name.toUpperCase() + "')");
             System.out.println("Student added");
             statement.close();
         } catch (SQLException ex) {
@@ -99,7 +99,33 @@ public class TaekwondoDatabase {
         }
     }
 
-    public void removeStudent() {
+    public void removeStudent(String name) {
+        Statement statement;
+        try {
+            statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM studentDetails WHERE name ='" + name.toUpperCase() + "'");
+            statement.executeUpdate("DELETE FROM littlekiwi WHERE name ='" + name.toUpperCase() + "'");
+            statement.executeUpdate("DELETE FROM dragon WHERE name ='" + name.toUpperCase() + "'");
+            statement.executeUpdate("DELETE FROM tiger WHERE name ='" + name.toUpperCase() + "'");
+            statement.executeUpdate("DELETE FROM adults WHERE name ='" + name.toUpperCase() + "'");
+            System.out.println("Student Deleted");
+            statement.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public ResultSet getClassList(String chosenClass) {
+        ResultSet rs = null;
+        Statement statement;
+        try {
+            System.out.println("Getting class");
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT name FROM "+chosenClass);
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return rs;
     }
 
     public void addUniformOrder() {

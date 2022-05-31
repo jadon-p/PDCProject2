@@ -1,5 +1,7 @@
 package src;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Observable;
 
 /**
@@ -60,11 +62,31 @@ public class TaekwondoModel extends Observable {
     public void editStudentDetail(String name, String detail, String newDetail) {
         boolean studentFound = this.database.checkName(name);
         if (studentFound) {
-            this.database.editStudent(name, detail, newDetail);
+            if (!detail.equals("Delete Student")) {
+                this.database.editStudent(name, detail, newDetail);
+            } else {
+                this.database.removeStudent(name);
+            }
             data.studentEdited = true;
             this.setChanged();
             this.notifyObservers(this.data);
         }
+    }
+
+    public void checkClassList(String desiredClass) {
+        ResultSet rs = this.database.getClassList(desiredClass);
+        String classList = "";
+        try {
+            while (rs.next()) {
+                classList = rs.getString(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        data.classFound = true;
+        data.classList = classList;
+        this.setChanged();
+        this.notifyObservers(this.data);
     }
 
     public void quitApp() {
