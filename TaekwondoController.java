@@ -52,6 +52,14 @@ public class TaekwondoController implements ActionListener {
         } else if (command.matches("Check Class")) {
             String desiredClass = (String) this.view.classComboBox.getSelectedItem();
             this.model.checkClassList(desiredClass);
+        } else if (command.matches("Add Uniform Order")) {
+            String uniformOrderName = this.view.uniformOrder.getText();
+            int uniformSize = Integer.parseInt((String) this.view.uniformComboBox.getSelectedItem());
+            this.model.addUniformOrder(uniformOrderName, uniformSize);
+        } else if (command.matches("Delete Uniform Order")) {
+            String uniformOrderName = this.view.uniformOrder.getText();
+            int uniformSize = Integer.parseInt((String) this.view.uniformComboBox.getSelectedItem());
+            this.model.deleteUniformOrder(uniformOrderName, uniformSize);
         }
     }
 }

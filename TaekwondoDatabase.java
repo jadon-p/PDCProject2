@@ -121,16 +121,62 @@ public class TaekwondoDatabase {
         try {
             System.out.println("Getting class");
             statement = conn.createStatement();
-            rs = statement.executeQuery("SELECT name FROM "+chosenClass);
+            rs = statement.executeQuery("SELECT name FROM " + chosenClass);
         } catch (SQLException ex) {
             System.out.println(ex);
         }
         return rs;
     }
 
-    public void addUniformOrder() {
+    public ResultSet getUniformList() {
+        ResultSet rs = null;
+        Statement statement;
+        try {
+            System.out.println("Getting uniform list");
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT name,size FROM uniformList");
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return rs;
     }
 
-    public void deleteUniformOrder() {
+    public boolean checkUniformOrder(String name, int size) {
+        boolean uniformFound = false;
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT name, size FROM uniformList WHERE name = '" + name.toUpperCase() + "' AND size =" + size);
+            if (rs.next()) {
+                System.out.println("Order exists!");
+                uniformFound = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return uniformFound;
+    }
+
+    public void addUniformOrder(String name, int size) {
+        Statement statement;
+        try {
+            statement = conn.createStatement();
+            statement.executeUpdate("INSERT INTO uniformList VALUES('" + name.toUpperCase() + "'," + size + ")");
+            System.out.println("Order added");
+            statement.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public void deleteUniformOrder(String name, int size) {
+        Statement statement;
+        try {
+            statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM uniformList WHERE name ='" + name.toUpperCase() + "' AND size =" + size);
+            System.out.println("Order deleted");
+            statement.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
     }
 }

@@ -1,6 +1,7 @@
 package src;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,6 +26,9 @@ public class TaekwondoData {
     public boolean studentSaved = false;
     public boolean studentEdited = false;
     public boolean classFound = false;
+    public boolean orderAdded = false;
+    public boolean orderDeleted = false;
 
-    public String classList = "";
+    public ArrayList classList = new ArrayList();
+    public ArrayList uniformOrders = new ArrayList();
 }

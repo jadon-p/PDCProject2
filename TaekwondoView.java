@@ -3,6 +3,7 @@ package src;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
@@ -43,8 +44,10 @@ public class TaekwondoView extends JFrame implements Observer {
     public final JComboBox beltComboBox = new JComboBox();
     public final JComboBox classComboBox = new JComboBox();
     public final JComboBox detailComboBox = new JComboBox();
+    public final JComboBox uniformComboBox = new JComboBox();
 
     public JLabel stuList = new JLabel("(Student List will appear here)");
+    public JLabel uniformList = new JLabel();
 
     public TaekwondoView() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -80,6 +83,18 @@ public class TaekwondoView extends JFrame implements Observer {
         detailComboBox.addItem("Phone");
         detailComboBox.addItem("Belt level");
         detailComboBox.addItem("Delete Student");
+
+        uniformComboBox.addItem("100");
+        uniformComboBox.addItem("110");
+        uniformComboBox.addItem("120");
+        uniformComboBox.addItem("130");
+        uniformComboBox.addItem("140");
+        uniformComboBox.addItem("150");
+        uniformComboBox.addItem("160");
+        uniformComboBox.addItem("170");
+        uniformComboBox.addItem("180");
+        uniformComboBox.addItem("190");
+        uniformComboBox.addItem("200");
     }
 
     private void menu() {
@@ -175,8 +190,8 @@ public class TaekwondoView extends JFrame implements Observer {
 
     public void checkUniformListMenu() {
         JLabel checkUniList = new JLabel("Check Uniform List");
-        JLabel uniformList = new JLabel("(This is where the uniform orders will show)");
         JLabel uniformOrderLabel = new JLabel("Enter uniform order you wish to add/delete");
+        JLabel uniformSizeLabel = new JLabel("Select Uniform below (in cm):");
         uniformOrder = new JTextField(30);
         JPanel checkUniPanel = new JPanel();
         checkUniPanel.setLayout(new GridLayout(0, 1));
@@ -184,6 +199,8 @@ public class TaekwondoView extends JFrame implements Observer {
         checkUniPanel.add(uniformList);
         checkUniPanel.add(uniformOrderLabel);
         checkUniPanel.add(uniformOrder);
+        checkUniPanel.add(uniformSizeLabel);
+        checkUniPanel.add(uniformComboBox);
         checkUniPanel.add(addUniform);
         checkUniPanel.add(deleteUniform);
         checkUniPanel.add(backButton);
@@ -237,7 +254,9 @@ public class TaekwondoView extends JFrame implements Observer {
             this.checkStudentListMenu();
             data.checkStuList = false;
         } else if (data.checkUniList) {
+            uniformList.setText(data.uniformOrders.toString());
             this.checkUniformListMenu();
+            data.uniformOrders = new ArrayList();
             data.checkUniList = false;
         } else if (data.studentSaved) {
             this.menu();
@@ -246,9 +265,15 @@ public class TaekwondoView extends JFrame implements Observer {
             this.menu();
             data.studentEdited = false;
         } else if (data.classFound) {
-            stuList.setText(data.classList);
+            stuList.setText(data.classList.toString());
             this.checkStudentListMenu();
             data.classFound = false;
+        } else if (data.orderAdded) {
+            this.menu();
+            data.orderAdded = false;
+        } else if (data.orderDeleted) {
+            this.menu();
+            data.orderDeleted= false;
         }
     }
 }

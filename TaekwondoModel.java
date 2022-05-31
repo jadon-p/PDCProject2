@@ -38,6 +38,14 @@ public class TaekwondoModel extends Observable {
     }
 
     public void checkUniformList() {
+        ResultSet rs = this.database.getUniformList();
+        try {
+            while (rs.next()) {
+                data.uniformOrders.add(rs.getString(1) + " " + rs.getString(2) + "cm");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
         data.checkUniList = true;
         this.setChanged();
         this.notifyObservers(this.data);
@@ -75,18 +83,36 @@ public class TaekwondoModel extends Observable {
 
     public void checkClassList(String desiredClass) {
         ResultSet rs = this.database.getClassList(desiredClass);
-        String classList = "";
         try {
             while (rs.next()) {
-                classList = rs.getString(1);
+                data.classList.add(rs.getString(1));
             }
         } catch (SQLException ex) {
             System.out.println(ex);
         }
         data.classFound = true;
-        data.classList = classList;
         this.setChanged();
         this.notifyObservers(this.data);
+    }
+
+    public void addUniformOrder(String orderName, int orderSize) {
+        boolean orderFound = this.database.checkUniformOrder(orderName, orderSize);
+        if (!orderFound) {
+            this.database.addUniformOrder(orderName, orderSize);
+            this.data.orderAdded = true;
+            this.setChanged();
+            this.notifyObservers(this.data);
+        }
+    }
+
+    public void deleteUniformOrder(String orderName, int orderSize) {
+        boolean orderFound = this.database.checkUniformOrder(orderName, orderSize);
+        if (orderFound) {
+            this.database.deleteUniformOrder(orderName, orderSize);
+            this.data.orderDeleted = true;
+            this.setChanged();
+            this.notifyObservers(this.data);
+        }
     }
 
     public void quitApp() {
