@@ -38,6 +38,7 @@ public class TaekwondoView extends JFrame implements Observer {
     public JTextField addPhone;
     public JTextField studentSearch;
     public JTextField uniformOrder;
+    public JTextField detailInput;
 
     public final JComboBox beltComboBox = new JComboBox();
     public final JComboBox classComboBox = new JComboBox();
@@ -76,6 +77,7 @@ public class TaekwondoView extends JFrame implements Observer {
         detailComboBox.addItem("Email");
         detailComboBox.addItem("Phone");
         detailComboBox.addItem("Belt level");
+        detailComboBox.addItem("Delete Student");
     }
 
     private void menu() {
@@ -134,19 +136,22 @@ public class TaekwondoView extends JFrame implements Observer {
 
     public void editStudentMenu() {
         JLabel editStuMsg = new JLabel("Enter Student Name to Edit");
-        JLabel edtitDetailLabel = new JLabel("Select detail to edit from list:");
+        JLabel edtitDetailLabel = new JLabel("Select detail to edit from list or delete student:");
+        JLabel detailInputLabel = new JLabel("Enter new value below:");
         studentSearch = new JTextField(30);
+        detailInput = new JTextField(30);
         JPanel editStuPanel = new JPanel();
         editStuPanel.setLayout(new GridLayout(0, 1));
         editStuPanel.add(editStuMsg);
         editStuPanel.add(studentSearch);
         editStuPanel.add(edtitDetailLabel);
         editStuPanel.add(detailComboBox);
+        editStuPanel.add(detailInputLabel);
+        editStuPanel.add(detailInput);
         editStuPanel.add(confirmEditButton);
         editStuPanel.add(backButton);
         this.getContentPane().removeAll();
         this.add(editStuPanel);
-
         this.revalidate();
         this.repaint();
     }
@@ -236,7 +241,9 @@ public class TaekwondoView extends JFrame implements Observer {
         } else if (data.studentSaved) {
             this.menu();
             data.studentSaved = false;
+        } else if (data.studentSaved) {
+            this.menu();
+            data.studentEdited = false;
         }
-
     }
 }

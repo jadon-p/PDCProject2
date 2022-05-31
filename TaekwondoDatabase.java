@@ -65,7 +65,7 @@ public class TaekwondoDatabase {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT name FROM studentDetails WHERE name = '" + name.toUpperCase() + "'");
             if (rs.next()) {
-                System.out.println("Student already exists!");
+                System.out.println("Student exists!");
                 studentFound = true;
             }
         } catch (SQLException ex) {
@@ -81,6 +81,18 @@ public class TaekwondoDatabase {
             statement.executeUpdate("INSERT INTO studentDetails VALUES('" + name.toUpperCase() + "','" + dob + "','" + email + "'," + phone + ",'" + belt + "','" + joiningDate + "')");
             statement.executeUpdate("INSERT INTO " + chosenClass + " VALUES('" + name + "')");
             System.out.println("Student added");
+            statement.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public void editStudent(String name, String detail, String newDetail) {
+        Statement statement;
+        try {
+            statement = conn.createStatement();
+            statement.executeUpdate("UPDATE studentDetails SET " + detail + "='" + newDetail + "' WHERE name ='" + name.toUpperCase() + "'");
+            System.out.println("Student Edited");
             statement.close();
         } catch (SQLException ex) {
             System.out.println(ex);

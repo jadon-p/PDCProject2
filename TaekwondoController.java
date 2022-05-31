@@ -22,6 +22,7 @@ public class TaekwondoController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
+        System.out.println(command);
         if (command.matches("Add Student")) {
             this.model.addStudent();
         } else if (command.matches("Edit Student")) {
@@ -43,6 +44,11 @@ public class TaekwondoController implements ActionListener {
             String joiningDate = LocalDate.now().toString();
             String chosenClass = (String) this.view.classComboBox.getSelectedItem();
             this.model.saveStudent(name, dateOfBirth, email, phone, belt, joiningDate, chosenClass);
+        } else if (command.matches("Confirm Edit Student")) {
+            String name = this.view.studentSearch.getText();
+            String detail = (String) this.view.detailComboBox.getSelectedItem();
+            String newDetail = this.view.detailInput.getText();
+            this.model.editStudentDetail(name, detail, newDetail);
         }
     }
 }

@@ -47,11 +47,21 @@ public class TaekwondoModel extends Observable {
         this.notifyObservers(this.data);
     }
 
-    public void saveStudent(String name, String dob, String email, int phone, String belt, String joiningDate, String chosenClass){
+    public void saveStudent(String name, String dob, String email, int phone, String belt, String joiningDate, String chosenClass) {
         boolean studentFound = this.database.checkName(name);
         if (!studentFound) {
-            this.database.saveStudent(name,dob,email,phone,belt,joiningDate,chosenClass);
+            this.database.saveStudent(name, dob, email, phone, belt, joiningDate, chosenClass);
             data.studentSaved = true;
+            this.setChanged();
+            this.notifyObservers(this.data);
+        }
+    }
+
+    public void editStudentDetail(String name, String detail, String newDetail) {
+        boolean studentFound = this.database.checkName(name);
+        if (studentFound) {
+            this.database.editStudent(name, detail, newDetail);
+            data.studentEdited = true;
             this.setChanged();
             this.notifyObservers(this.data);
         }

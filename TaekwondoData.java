@@ -23,4 +23,5 @@ public class TaekwondoData {
     public boolean checkUniList = false;
     public boolean didQuit = false;
     public boolean studentSaved = false;
+    public boolean studentEdited = false;
 }
