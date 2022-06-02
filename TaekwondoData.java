@@ -17,18 +17,8 @@ public class TaekwondoData {
     public String belt;
     public LocalDate joiningDate;
 
-    public boolean openMenu = false;
-    public boolean addStu = false;
-    public boolean editStu = false;
-    public boolean checkStuList = false;
-    public boolean checkUniList = false;
-    public boolean didQuit = false;
-    public boolean studentSaved = false;
-    public boolean studentEdited = false;
-    public boolean classFound = false;
-    public boolean orderAdded = false;
-    public boolean orderDeleted = false;
-
     public ArrayList classList = new ArrayList();
     public ArrayList uniformOrders = new ArrayList();
+
+    public String update;
 }

@@ -21,116 +21,73 @@ public class TaekwondoView extends JFrame implements Observer {
 
     private final JPanel menuPanel = new JPanel();
 
-    private final JButton newStuButton = new JButton("Add Student");
-    private final JButton editStuButton = new JButton("Edit Student");
+    private final JButton addUniformButton = new JButton("Add Uniform Order");
+    private final JButton backButton = new JButton("Return to Menu");
     private final JButton checkStuButton = new JButton("Check Student List");
     private final JButton checkUniButton = new JButton("Check Uniform Orders");
-    private final JButton quitButton = new JButton("Quit");
-    private final JButton backButton = new JButton("Return to Menu");
-    private final JButton saveButton = new JButton("Save Student");
-    private final JButton confirmEditButton = new JButton("Confirm Edit Student");
     private final JButton confirmCheckButton = new JButton("Check Class");
-    private final JButton addUniform = new JButton("Add Uniform Order");
-    private final JButton deleteUniform = new JButton("Delete Uniform Order");
+    private final JButton confirmEditButton = new JButton("Confirm Edit Student");
+    private final JButton deleteUniformButton = new JButton("Delete Uniform Order");
+    private final JButton editStuButton = new JButton("Edit Student");
+    private final JButton newStuButton = new JButton("Add Student");
+    private final JButton quitButton = new JButton("Quit");
+    private final JButton saveButton = new JButton("Save Student");
 
-    public JTextField addName;
-    public JTextField addDOB;
-    public JTextField addEmail;
-    public JTextField addPhone;
-    public JTextField studentSearch;
-    public JTextField uniformOrder;
-    public JTextField detailInput;
+    public JTextField addName = new JTextField(30);
+    public JTextField addDOB = new JTextField(10);
+    public JTextField addEmail = new JTextField(40);
+    public JTextField addPhone = new JTextField(10);
+    public JTextField studentSearch = new JTextField(30);
+    public JTextField uniformOrder = new JTextField(30);
+    public JTextField detailInput = new JTextField(30);
 
     public final JComboBox beltComboBox = new JComboBox();
     public final JComboBox classComboBox = new JComboBox();
     public final JComboBox detailComboBox = new JComboBox();
     public final JComboBox uniformComboBox = new JComboBox();
 
+    public JLabel errorLabel = new JLabel();
     public JLabel stuList = new JLabel("(Student List will appear here)");
     public JLabel uniformList = new JLabel();
 
     public TaekwondoView() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 800);
-        this.menuPanel.setLayout(new GridLayout(5, 1));
-        this.menuPanel.add(newStuButton);
-        this.menuPanel.add(editStuButton);
-        this.menuPanel.add(checkStuButton);
-        this.menuPanel.add(checkUniButton);
-        this.menuPanel.add(quitButton);
+        this.menu();
         this.add(menuPanel);
         this.setVisible(true);
 
-        beltComboBox.addItem("Yellow Tip");
-        beltComboBox.addItem("Yellow");
-        beltComboBox.addItem("Orange");
-        beltComboBox.addItem("Green");
-        beltComboBox.addItem("Blue");
-        beltComboBox.addItem("Purple");
-        beltComboBox.addItem("Brown");
-        beltComboBox.addItem("Red");
-        beltComboBox.addItem("Black Tip");
-        beltComboBox.addItem("Black");
-
-        classComboBox.addItem("LittleKiwi");
-        classComboBox.addItem("Dragon");
-        classComboBox.addItem("Tiger");
-        classComboBox.addItem("Adults");
-
-        detailComboBox.addItem("Name");
-        detailComboBox.addItem("Date of Birth");
-        detailComboBox.addItem("Email");
-        detailComboBox.addItem("Phone");
-        detailComboBox.addItem("Belt level");
-        detailComboBox.addItem("Delete Student");
-
-        uniformComboBox.addItem("100");
-        uniformComboBox.addItem("110");
-        uniformComboBox.addItem("120");
-        uniformComboBox.addItem("130");
-        uniformComboBox.addItem("140");
-        uniformComboBox.addItem("150");
-        uniformComboBox.addItem("160");
-        uniformComboBox.addItem("170");
-        uniformComboBox.addItem("180");
-        uniformComboBox.addItem("190");
-        uniformComboBox.addItem("200");
+        ComboBoxInitializer.beltComboBox(beltComboBox);
+        ComboBoxInitializer.classComboBox(classComboBox);
+        ComboBoxInitializer.detailComboBox(detailComboBox);
+        ComboBoxInitializer.uniformComboBox(uniformComboBox);
     }
 
-    private void menu() {
+    public void menu() {
         this.menuPanel.setLayout(new GridLayout(5, 1));
         this.menuPanel.add(newStuButton);
         this.menuPanel.add(editStuButton);
         this.menuPanel.add(checkStuButton);
         this.menuPanel.add(checkUniButton);
         this.menuPanel.add(quitButton);
-        this.getContentPane().removeAll();
-        this.add(menuPanel);
-        this.revalidate();
-        this.repaint();
+        this.refresh(menuPanel);
     }
 
     public void addStudentMenu() {
-        GridLayout layout = new GridLayout(0, 1);
-        JLabel addNameLabel = new JLabel("Enter Name below:");
+        JLabel addNameLabel = new JLabel("Enter Name below");
         addNameLabel.setFont(new Font("ARIAL", Font.PLAIN, 25));
-        JLabel addDobLabel = new JLabel("Enter Date of Birth below:");
+        JLabel addDobLabel = new JLabel("Enter Date of Birth below (Format dd-mm-yyyy)");
         addDobLabel.setFont(new Font("ARIAL", Font.PLAIN, 25));
-        JLabel addEmailLabel = new JLabel("Enter Email below:");
+        JLabel addEmailLabel = new JLabel("Enter Email below");
         addEmailLabel.setFont(new Font("ARIAL", Font.PLAIN, 25));
-        JLabel addPhoneLabel = new JLabel("Enter Phone below:");
+        JLabel addPhoneLabel = new JLabel("Enter Phone below (Max 10 digits)");
         addPhoneLabel.setFont(new Font("ARIAL", Font.PLAIN, 25));
-        JLabel addBeltLabel = new JLabel("Select Belt from list:");
+        JLabel addBeltLabel = new JLabel("Select Belt from list");
         addBeltLabel.setFont(new Font("ARIAL", Font.PLAIN, 25));
-        JLabel addClassLabel = new JLabel("Select Class from list:");
+        JLabel addClassLabel = new JLabel("Select Class from list");
         addClassLabel.setFont(new Font("ARIAL", Font.PLAIN, 25));
-        addName = new JTextField(40);
-        addDOB = new JTextField(11);
-        addEmail = new JTextField(50);
-        addPhone = new JTextField(11);
         JPanel addStuPanel = new JPanel();
-        addStuPanel.setLayout(layout);
-        layout.setVgap(5);
+        addStuPanel.setLayout(new GridLayout(0, 1));
         addStuPanel.add(addNameLabel);
         addStuPanel.add(addName);
         addStuPanel.add(addDobLabel);
@@ -143,20 +100,16 @@ public class TaekwondoView extends JFrame implements Observer {
         addStuPanel.add(beltComboBox);
         addStuPanel.add(addClassLabel);
         addStuPanel.add(classComboBox);
+        addStuPanel.add(errorLabel);
         addStuPanel.add(saveButton);
         addStuPanel.add(backButton);
-        this.getContentPane().removeAll();
-        this.add(addStuPanel);
-        this.revalidate();
-        this.repaint();
+        this.refresh(addStuPanel);
     }
 
     public void editStudentMenu() {
         JLabel editStuMsg = new JLabel("Enter Student Name to Edit");
         JLabel edtitDetailLabel = new JLabel("Select detail to edit from list or delete student:");
         JLabel detailInputLabel = new JLabel("Enter new value below:");
-        studentSearch = new JTextField(30);
-        detailInput = new JTextField(30);
         JPanel editStuPanel = new JPanel();
         editStuPanel.setLayout(new GridLayout(0, 1));
         editStuPanel.add(editStuMsg);
@@ -167,10 +120,7 @@ public class TaekwondoView extends JFrame implements Observer {
         editStuPanel.add(detailInput);
         editStuPanel.add(confirmEditButton);
         editStuPanel.add(backButton);
-        this.getContentPane().removeAll();
-        this.add(editStuPanel);
-        this.revalidate();
-        this.repaint();
+        this.refresh(editStuPanel);
     }
 
     public void checkStudentListMenu() {
@@ -182,17 +132,13 @@ public class TaekwondoView extends JFrame implements Observer {
         checkStuPanel.add(confirmCheckButton);
         checkStuPanel.add(stuList);
         checkStuPanel.add(backButton);
-        this.getContentPane().removeAll();
-        this.add(checkStuPanel);
-        this.revalidate();
-        this.repaint();
+        this.refresh(checkStuPanel);
     }
 
     public void checkUniformListMenu() {
         JLabel checkUniList = new JLabel("Check Uniform List");
         JLabel uniformOrderLabel = new JLabel("Enter uniform order you wish to add/delete");
         JLabel uniformSizeLabel = new JLabel("Select Uniform below (in cm):");
-        uniformOrder = new JTextField(30);
         JPanel checkUniPanel = new JPanel();
         checkUniPanel.setLayout(new GridLayout(0, 1));
         checkUniPanel.add(checkUniList);
@@ -201,37 +147,60 @@ public class TaekwondoView extends JFrame implements Observer {
         checkUniPanel.add(uniformOrder);
         checkUniPanel.add(uniformSizeLabel);
         checkUniPanel.add(uniformComboBox);
-        checkUniPanel.add(addUniform);
-        checkUniPanel.add(deleteUniform);
+        checkUniPanel.add(addUniformButton);
+        checkUniPanel.add(deleteUniformButton);
         checkUniPanel.add(backButton);
-        this.getContentPane().removeAll();
-        this.add(checkUniPanel);
-        this.revalidate();
-        this.repaint();
+        this.refresh(checkUniPanel);
     }
 
     public void addActionListener(ActionListener listener) {
         this.newStuButton.addActionListener(listener);
+        this.newStuButton.setActionCommand("ADDMENU");
+
         this.editStuButton.addActionListener(listener);
+        this.editStuButton.setActionCommand("EDITMENU");
+
         this.checkStuButton.addActionListener(listener);
+        this.checkStuButton.setActionCommand("STUDENTMENU");
+
         this.checkUniButton.addActionListener(listener);
+        this.checkUniButton.setActionCommand("UNIFORMMENU");
+
         this.quitButton.addActionListener(listener);
+        this.quitButton.setActionCommand("QUIT");
+
         this.backButton.addActionListener(listener);
+        this.backButton.setActionCommand("MENU");
+
         this.saveButton.addActionListener(listener);
+        this.saveButton.setActionCommand("ADDSTUDENT");
+
         this.confirmCheckButton.addActionListener(listener);
+        this.confirmCheckButton.setActionCommand("CHECKCLASS");
+
         this.confirmEditButton.addActionListener(listener);
-        this.addUniform.addActionListener(listener);
-        this.deleteUniform.addActionListener(listener);
+        this.confirmEditButton.setActionCommand("EDITSTUDENT");
+
+        this.addUniformButton.addActionListener(listener);
+        this.addUniformButton.setActionCommand("ADDUNIFORM");
+
+        this.deleteUniformButton.addActionListener(listener);
+        this.deleteUniformButton.setActionCommand("DELETEUNIFORM");
     }
 
-    private void quitApp() {
+    public void quitApp() {
         JLabel quitMsg = new JLabel("Program has exited");
         quitMsg.setFont(new Font("ARIAL", Font.PLAIN, 25));
         JPanel exitPanel = new JPanel();
         exitPanel.setLayout(new GridLayout(1, 1));
         exitPanel.add(quitMsg);
+        this.refresh(exitPanel);
+    }
+
+    //Helper Function that updates the GUI for the user's perspective
+    private void refresh(JPanel panel) {
         this.getContentPane().removeAll();
-        this.add(exitPanel);
+        this.add(panel);
         this.revalidate();
         this.repaint();
     }
@@ -239,41 +208,10 @@ public class TaekwondoView extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         TaekwondoData data = (TaekwondoData) arg;
-        if (data.didQuit) {
-            this.quitApp();
-        } else if (data.addStu) {
-            this.addStudentMenu();
-            data.addStu = false;
-        } else if (data.openMenu) {
-            this.menu();
-            data.openMenu = false;
-        } else if (data.editStu) {
-            this.editStudentMenu();
-            data.editStu = false;
-        } else if (data.checkStuList) {
-            this.checkStudentListMenu();
-            data.checkStuList = false;
-        } else if (data.checkUniList) {
-            uniformList.setText(data.uniformOrders.toString());
-            this.checkUniformListMenu();
-            data.uniformOrders = new ArrayList();
-            data.checkUniList = false;
-        } else if (data.studentSaved) {
-            this.menu();
-            data.studentSaved = false;
-        } else if (data.studentSaved) {
-            this.menu();
-            data.studentEdited = false;
-        } else if (data.classFound) {
-            stuList.setText(data.classList.toString());
-            this.checkStudentListMenu();
-            data.classFound = false;
-        } else if (data.orderAdded) {
-            this.menu();
-            data.orderAdded = false;
-        } else if (data.orderDeleted) {
-            this.menu();
-            data.orderDeleted= false;
-        }
+        this.getUpdate(data, this, Update.valueOf(data.update));
+    }
+
+    private void getUpdate(TaekwondoData data, TaekwondoView view, Update update) {
+        update.execute(data, view);
     }
 }
