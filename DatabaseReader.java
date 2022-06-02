@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author GGPC
+ * @author pfn3947
  */
 public class DatabaseReader {
 

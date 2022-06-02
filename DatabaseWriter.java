@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author GGPC
+ * @author pfn3947
  */
 public class DatabaseWriter {
 
@@ -38,11 +38,23 @@ public class DatabaseWriter {
         Statement statement;
         try {
             statement = conn.createStatement();
-            statement.executeUpdate("UPDATE studentDetails SET " + detail + "='" + newDetail + "' WHERE name ='" + name.toUpperCase() + "'");
-            statement.executeUpdate("UPDATE littlekiwi SET " + detail + "='" + newDetail + "' WHERE name ='" + name.toUpperCase() + "'");
-            statement.executeUpdate("UPDATE dragon SET " + detail + "='" + newDetail + "' WHERE name ='" + name.toUpperCase() + "'");
-            statement.executeUpdate("UPDATE tiger SET " + detail + "='" + newDetail + "' WHERE name ='" + name.toUpperCase() + "'");
-            statement.executeUpdate("UPDATE adults SET " + detail + "='" + newDetail + "' WHERE name ='" + name.toUpperCase() + "'");
+            if (detail.matches("Name")) {
+                statement.executeUpdate("UPDATE studentDetails SET name ='" + newDetail.toUpperCase() + "' WHERE name ='" + name.toUpperCase() + "'");
+                statement.executeUpdate("UPDATE littlekiwi SET name ='" + newDetail.toUpperCase() + "' WHERE name ='" + name.toUpperCase() + "'");
+                statement.executeUpdate("UPDATE dragon SET name ='" + newDetail.toUpperCase() + "' WHERE name ='" + name.toUpperCase() + "'");
+                statement.executeUpdate("UPDATE tiger SET name ='" + newDetail.toUpperCase() + "' WHERE name ='" + name.toUpperCase() + "'");
+                statement.executeUpdate("UPDATE adults SET name ='" + newDetail.toUpperCase() + "' WHERE name ='" + name.toUpperCase() + "'");
+            } else if (detail.matches("Phone")) {
+                statement.executeUpdate("UPDATE studentDetails SET " + detail + "=" + newDetail + " WHERE name ='" + name.toUpperCase() + "'");
+            } else if (detail.matches("Class")) {
+                statement.executeUpdate("DELETE FROM littlekiwi WHERE name ='" + name.toUpperCase() + "'");
+                statement.executeUpdate("DELETE FROM dragon WHERE name ='" + name.toUpperCase() + "'");
+                statement.executeUpdate("DELETE FROM tiger WHERE name ='" + name.toUpperCase() + "'");
+                statement.executeUpdate("DELETE FROM adults WHERE name ='" + name.toUpperCase() + "'");
+                statement.executeUpdate("INSERT INTO " + newDetail + " VALUES ('" + name.toUpperCase() + "')");
+            } else {
+                statement.executeUpdate("UPDATE studentDetails SET " + detail + "='" + newDetail.toUpperCase() + "' WHERE name ='" + name.toUpperCase() + "'");
+            }
             System.out.println("Student Edited");
             statement.close();
         } catch (SQLException ex) {
@@ -70,7 +82,7 @@ public class DatabaseWriter {
         Statement statement;
         try {
             statement = conn.createStatement();
-            statement.executeUpdate("INSERT INTO studentDetails VALUES('" + name.toUpperCase() + "','" + dob + "','" + email + "'," + phone + ",'" + belt + "','" + joiningDate + "')");
+            statement.executeUpdate("INSERT INTO studentDetails VALUES('" + name.toUpperCase() + "','" + dob + "','" + email.toUpperCase() + "'," + phone + ",'" + belt + "','" + joiningDate + "')");
             statement.executeUpdate("INSERT INTO " + chosenClass + " VALUES('" + name.toUpperCase() + "')");
             System.out.println("Student added");
             statement.close();

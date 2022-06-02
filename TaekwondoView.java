@@ -3,7 +3,6 @@ package src;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
@@ -46,7 +45,7 @@ public class TaekwondoView extends JFrame implements Observer {
     public final JComboBox detailComboBox = new JComboBox();
     public final JComboBox uniformComboBox = new JComboBox();
 
-    public JLabel errorLabel = new JLabel();
+    public JLabel promptLabel = new JLabel();
     public JLabel stuList = new JLabel("(Student List will appear here)");
     public JLabel uniformList = new JLabel();
 
@@ -74,6 +73,7 @@ public class TaekwondoView extends JFrame implements Observer {
     }
 
     public void addStudentMenu() {
+        InputCleaner.cleanAddStudent(this);
         JLabel addNameLabel = new JLabel("Enter Name below");
         addNameLabel.setFont(new Font("ARIAL", Font.PLAIN, 25));
         JLabel addDobLabel = new JLabel("Enter Date of Birth below (Format dd-mm-yyyy)");
@@ -100,13 +100,14 @@ public class TaekwondoView extends JFrame implements Observer {
         addStuPanel.add(beltComboBox);
         addStuPanel.add(addClassLabel);
         addStuPanel.add(classComboBox);
-        addStuPanel.add(errorLabel);
+        addStuPanel.add(promptLabel);
         addStuPanel.add(saveButton);
         addStuPanel.add(backButton);
         this.refresh(addStuPanel);
     }
 
     public void editStudentMenu() {
+        InputCleaner.cleanEditStudent(this);
         JLabel editStuMsg = new JLabel("Enter Student Name to Edit");
         JLabel edtitDetailLabel = new JLabel("Select detail to edit from list or delete student:");
         JLabel detailInputLabel = new JLabel("Enter new value below:");
@@ -118,6 +119,7 @@ public class TaekwondoView extends JFrame implements Observer {
         editStuPanel.add(detailComboBox);
         editStuPanel.add(detailInputLabel);
         editStuPanel.add(detailInput);
+        editStuPanel.add(promptLabel);
         editStuPanel.add(confirmEditButton);
         editStuPanel.add(backButton);
         this.refresh(editStuPanel);
@@ -136,6 +138,7 @@ public class TaekwondoView extends JFrame implements Observer {
     }
 
     public void checkUniformListMenu() {
+        InputCleaner.cleanOrderMenu(this);
         JLabel checkUniList = new JLabel("Check Uniform List");
         JLabel uniformOrderLabel = new JLabel("Enter uniform order you wish to add/delete");
         JLabel uniformSizeLabel = new JLabel("Select Uniform below (in cm):");
@@ -147,6 +150,7 @@ public class TaekwondoView extends JFrame implements Observer {
         checkUniPanel.add(uniformOrder);
         checkUniPanel.add(uniformSizeLabel);
         checkUniPanel.add(uniformComboBox);
+        checkUniPanel.add(promptLabel);
         checkUniPanel.add(addUniformButton);
         checkUniPanel.add(deleteUniformButton);
         checkUniPanel.add(backButton);

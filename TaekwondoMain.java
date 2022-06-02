@@ -2,7 +2,7 @@ package src;
 
 /**
  *
- * @author Jadon
+ * @author pfn3947
  */
 public class TaekwondoMain {
 

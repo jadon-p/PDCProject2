@@ -4,7 +4,7 @@ import javax.swing.JComboBox;
 
 /**
  *
- * @author GGPC
+ * @author pfn3947
  */
 public class ComboBoxInitializer {
 
@@ -34,7 +34,8 @@ public class ComboBoxInitializer {
         comboBox.addItem("Date of Birth");
         comboBox.addItem("Email");
         comboBox.addItem("Phone");
-        comboBox.addItem("Belt level");
+        comboBox.addItem("Belt");
+        comboBox.addItem("Class");
         comboBox.addItem("Delete Student");
     }
 

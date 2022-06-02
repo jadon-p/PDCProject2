@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author Jadon
+ * @author pfn3947
  */
 public class TaekwondoDatabase {
 

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 /**
  *
- * @author GGPC
+ * @author pfn3947
  */
 public enum Command {
 
@@ -45,10 +45,12 @@ public enum Command {
             String dateOfBirth = view.addDOB.getText();
             String email = view.addEmail.getText();
             int phone = Integer.parseInt(view.addPhone.getText());
-            String belt = (String) view.beltComboBox.getSelectedItem();
-            String joiningDate = LocalDate.now().toString();
-            String chosenClass = (String) view.classComboBox.getSelectedItem();
-            model.saveStudent(name, dateOfBirth, email, phone, belt, joiningDate, chosenClass);
+            if (DataValidator.checkData(dateOfBirth, email, name, phone)) {
+                String belt = (String) view.beltComboBox.getSelectedItem();
+                String joiningDate = LocalDate.now().toString();
+                String chosenClass = (String) view.classComboBox.getSelectedItem();
+                model.saveStudent(name, dateOfBirth, email, phone, belt, joiningDate, chosenClass);
+            }
         }
     },
     EDITSTUDENT {

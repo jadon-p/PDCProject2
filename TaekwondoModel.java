@@ -27,7 +27,10 @@ public class TaekwondoModel extends Observable {
         boolean orderFound = this.database.checkOrder(orderName, orderSize);
         if (!orderFound) {
             this.database.addOrder(orderName, orderSize);
+            ResultSet rs = this.database.getUniformList();
+            this.addOrderList();
             data.update = "ADDORDER";
+            data.status = "SUCCESS";
             this.changeData();
         }
     }
@@ -51,14 +54,7 @@ public class TaekwondoModel extends Observable {
     }
 
     public void checkUniformList() {
-        ResultSet rs = this.database.getUniformList();
-        try {
-            while (rs.next()) {
-                data.uniformOrders.add(rs.getString(1) + " " + rs.getString(2) + "cm");
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
+        this.addOrderList();
         data.update = "UNIFORMMENU";
         this.changeData();
     }
@@ -67,6 +63,8 @@ public class TaekwondoModel extends Observable {
         boolean orderFound = this.database.checkOrder(orderName, orderSize);
         if (orderFound) {
             this.database.deleteOrder(orderName, orderSize);
+            this.addOrderList();
+            data.status = "SUCCESS";
             data.update = "DELETEORDER";
             this.changeData();
         }
@@ -86,6 +84,7 @@ public class TaekwondoModel extends Observable {
                 this.database.removeStudent(name);
             }
             data.update = "EDITSTUDENT";
+            data.status = "SUCCESS";
             this.changeData();
         }
     }
@@ -105,6 +104,7 @@ public class TaekwondoModel extends Observable {
         if (!studentFound) {
             this.database.saveStudent(name, dob, email, phone, belt, joiningDate, chosenClass);
             data.update = "SAVE";
+            data.status = "SUCCESS";
             this.changeData();
         }
     }
@@ -113,5 +113,17 @@ public class TaekwondoModel extends Observable {
     private void changeData() {
         this.setChanged();
         this.notifyObservers(this.data);
+    }
+
+    //Helper function to add uniforms from database to arraylist
+    private void addOrderList() {
+        ResultSet rs = this.database.getUniformList();
+        try {
+            while (rs.next()) {
+                data.uniformOrders.add(rs.getString(1) + " " + rs.getString(2) + "cm");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
     }
 }

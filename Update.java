@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author GGPC
+ * @author pfn3947
  */
 public enum Update {
     ADDMENU {
@@ -17,14 +17,21 @@ public enum Update {
     ADDORDER {
         @Override
         public void execute(TaekwondoData data, TaekwondoView view) {
-            view.menu();
+            if (data.status.matches("SUCCESS")) {
+                view.uniformList.setText(!data.uniformOrders.isEmpty() ? data.uniformOrders.toString() : "");
+                view.checkUniformListMenu();
+                view.promptLabel.setText("Order Was Added");
+                data.uniformOrders = new ArrayList();
+            }
             data.update = "";
+            data.status = "";
         }
     },
     STUDENTMENU {
         @Override
         public void execute(TaekwondoData data, TaekwondoView view) {
             view.checkStudentListMenu();
+            view.stuList.setText("");
             data.update = "";
         }
     },
@@ -40,8 +47,14 @@ public enum Update {
     DELETEORDER {
         @Override
         public void execute(TaekwondoData data, TaekwondoView view) {
-            view.menu();
+            if (data.status.matches("SUCCESS")) {
+                view.uniformList.setText(!data.uniformOrders.isEmpty() ? data.uniformOrders.toString() : "");
+                view.checkUniformListMenu();
+                view.promptLabel.setText("Order Was Deleted");
+                data.uniformOrders = new ArrayList();
+            }
             data.update = "";
+            data.status = "";
         }
     },
     MENU {
@@ -54,7 +67,11 @@ public enum Update {
     EDITSTUDENT {
         @Override
         public void execute(TaekwondoData data, TaekwondoView view) {
-            view.editStudentMenu();
+            if (data.status.matches("SUCCESS")) {
+                view.editStudentMenu();
+                view.promptLabel.setText("Edit was saved");
+                data.status = "";
+            }
             data.update = "";
         }
     },
@@ -68,7 +85,11 @@ public enum Update {
     SAVE {
         @Override
         public void execute(TaekwondoData data, TaekwondoView view) {
-            view.menu();
+            if (data.status.matches("SUCCESS")) {
+                view.addStudentMenu();
+                view.promptLabel.setText("Student was saved");
+                data.status = "";
+            }
             data.update = "";
         }
     },
