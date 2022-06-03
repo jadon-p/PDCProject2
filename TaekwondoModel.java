@@ -67,6 +67,8 @@ public class TaekwondoModel extends Observable {
         boolean studentFound = this.database.checkName(name);
         if (studentFound) {
             this.database.removeStudent(name);
+            data.update = "DELETESTUDENT";
+            data.status = "SUCCESS";
         } else {
             data.status = "FAIL";
             data.error = "STUDENT DOES NOT EXIST";
