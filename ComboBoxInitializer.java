@@ -36,7 +36,6 @@ public class ComboBoxInitializer {
         comboBox.addItem("Phone");
         comboBox.addItem("Belt");
         comboBox.addItem("Class");
-        comboBox.addItem("Delete Student");
     }
 
     public static void uniformComboBox(JComboBox comboBox) {

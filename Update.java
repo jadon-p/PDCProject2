@@ -22,17 +22,9 @@ public enum Update {
                 view.checkUniformListMenu();
                 view.promptLabel.setText("Order Was Added");
                 data.uniformOrders = new ArrayList();
-            }
+            } 
             data.update = "";
             data.status = "";
-        }
-    },
-    STUDENTMENU {
-        @Override
-        public void execute(TaekwondoData data, TaekwondoView view) {
-            view.checkStudentListMenu();
-            view.stuList.setText("");
-            data.update = "";
         }
     },
     CHECKCLASS {
@@ -57,10 +49,14 @@ public enum Update {
             data.status = "";
         }
     },
-    MENU {
+    DELETESTUDENT {
         @Override
         public void execute(TaekwondoData data, TaekwondoView view) {
-            view.menu();
+            if (data.status.matches("SUCCESS")) {
+                view.editStudentMenu();
+                view.promptLabel.setText("Student was deleted");
+                data.status = "";
+            }
             data.update = "";
         }
     },
@@ -82,6 +78,21 @@ public enum Update {
             data.update = "";
         }
     },
+    MENU {
+        @Override
+        public void execute(TaekwondoData data, TaekwondoView view) {
+            view.menu();
+            data.update = "";
+        }
+    },
+    QUIT {
+        @Override
+        public void execute(TaekwondoData data, TaekwondoView view
+        ) {
+            view.quitApp();
+            data.update = "";
+        }
+    },
     SAVE {
         @Override
         public void execute(TaekwondoData data, TaekwondoView view) {
@@ -93,20 +104,20 @@ public enum Update {
             data.update = "";
         }
     },
+    STUDENTMENU {
+        @Override
+        public void execute(TaekwondoData data, TaekwondoView view) {
+            view.checkStudentListMenu();
+            view.stuList.setText("");
+            data.update = "";
+        }
+    },
     UNIFORMMENU {
         @Override
         public void execute(TaekwondoData data, TaekwondoView view) {
             view.uniformList.setText(!data.uniformOrders.isEmpty() ? data.uniformOrders.toString() : "");
             view.checkUniformListMenu();
             data.uniformOrders = new ArrayList();
-            data.update = "";
-        }
-    },
-    QUIT {
-        @Override
-        public void execute(TaekwondoData data, TaekwondoView view
-        ) {
-            view.quitApp();
             data.update = "";
         }
     };

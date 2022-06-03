@@ -59,6 +59,16 @@ public class TaekwondoModel extends Observable {
         this.changeData();
     }
 
+    public void deleteStudent(String name) {
+        boolean studentFound = this.database.checkName(name);
+        if (studentFound) {
+            this.database.removeStudent(name);
+        }
+        data.update = "DELETESTUDENT";
+        data.status = "SUCCESS";
+        this.changeData();
+    }
+
     public void deleteUniformOrder(String orderName, int orderSize) {
         boolean orderFound = this.database.checkOrder(orderName, orderSize);
         if (orderFound) {
@@ -78,15 +88,11 @@ public class TaekwondoModel extends Observable {
     public void editStudentDetail(String name, String detail, String newDetail) {
         boolean studentFound = this.database.checkName(name);
         if (studentFound) {
-            if (!detail.equals("Delete Student")) {
-                this.database.editStudent(name, detail, newDetail);
-            } else {
-                this.database.removeStudent(name);
-            }
-            data.update = "EDITSTUDENT";
-            data.status = "SUCCESS";
-            this.changeData();
+            this.database.editStudent(name, detail, newDetail);
         }
+        data.update = "EDITSTUDENT";
+        data.status = "SUCCESS";
+        this.changeData();
     }
 
     public void openMenu() {

@@ -27,6 +27,21 @@ public class DatabaseReader {
         return studentFound;
     }
 
+    public boolean checkOrder(String name, int size, Connection conn) {
+        boolean uniformFound = false;
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT name, size FROM uniformList WHERE name = '" + name.toUpperCase() + "' AND size =" + size);
+            if (rs.next()) {
+                System.out.println("Order exists!");
+                uniformFound = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return uniformFound;
+    }
+
     public boolean checkTableExisting(String newTableName, Connection conn) {
         boolean flag = false;
         try {
@@ -44,21 +59,6 @@ public class DatabaseReader {
             System.out.println(ex);
         }
         return flag;
-    }
-
-    public boolean checkOrder(String name, int size, Connection conn) {
-        boolean uniformFound = false;
-        try {
-            Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT name, size FROM uniformList WHERE name = '" + name.toUpperCase() + "' AND size =" + size);
-            if (rs.next()) {
-                System.out.println("Order exists!");
-                uniformFound = true;
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-        return uniformFound;
     }
 
     public ResultSet getClassList(String chosenClass, Connection conn) {

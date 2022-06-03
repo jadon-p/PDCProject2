@@ -31,6 +31,7 @@ public class TaekwondoView extends JFrame implements Observer {
     private final JButton newStuButton = new JButton("Add Student");
     private final JButton quitButton = new JButton("Quit");
     private final JButton saveButton = new JButton("Save Student");
+    private final JButton deleteStuButton = new JButton("Delete Student");
 
     public JTextField addName = new JTextField(30);
     public JTextField addDOB = new JTextField(10);
@@ -52,18 +53,24 @@ public class TaekwondoView extends JFrame implements Observer {
     public TaekwondoView() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 800);
+        this.setResizable(false);
         this.menu();
         this.add(menuPanel);
         this.setVisible(true);
 
         ComboBoxInitializer.beltComboBox(beltComboBox);
+        beltComboBox.setFont(new Font("ARIAL", Font.PLAIN, 16));
         ComboBoxInitializer.classComboBox(classComboBox);
+        classComboBox.setFont(new Font("ARIAL", Font.PLAIN, 16));
         ComboBoxInitializer.detailComboBox(detailComboBox);
+        detailComboBox.setFont(new Font("ARIAL", Font.PLAIN, 16));
         ComboBoxInitializer.uniformComboBox(uniformComboBox);
+        uniformComboBox.setFont(new Font("ARIAL", Font.PLAIN, 16));
     }
 
     public void menu() {
         this.menuPanel.setLayout(new GridLayout(5, 1));
+        this.promptLabel.setText("");
         this.menuPanel.add(newStuButton);
         this.menuPanel.add(editStuButton);
         this.menuPanel.add(checkStuButton);
@@ -74,20 +81,23 @@ public class TaekwondoView extends JFrame implements Observer {
 
     public void addStudentMenu() {
         InputCleaner.cleanAddStudent(this);
-        JLabel addNameLabel = new JLabel("Enter Name below");
-        addNameLabel.setFont(new Font("ARIAL", Font.PLAIN, 25));
+        JLabel addStuLabel = new JLabel("Add Student Menu", JLabel.CENTER);
+        addStuLabel.setFont(new Font("ARIAL", Font.BOLD, 22));
+        JLabel addNameLabel = new JLabel("Enter Name below (MAX 30 Characters)");
+        addNameLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
         JLabel addDobLabel = new JLabel("Enter Date of Birth below (Format dd-mm-yyyy)");
-        addDobLabel.setFont(new Font("ARIAL", Font.PLAIN, 25));
-        JLabel addEmailLabel = new JLabel("Enter Email below");
-        addEmailLabel.setFont(new Font("ARIAL", Font.PLAIN, 25));
+        addDobLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
+        JLabel addEmailLabel = new JLabel("Enter Email below (MAX 40 Characters, must include \'@\')");
+        addEmailLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
         JLabel addPhoneLabel = new JLabel("Enter Phone below (Max 10 digits)");
-        addPhoneLabel.setFont(new Font("ARIAL", Font.PLAIN, 25));
+        addPhoneLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
         JLabel addBeltLabel = new JLabel("Select Belt from list");
-        addBeltLabel.setFont(new Font("ARIAL", Font.PLAIN, 25));
+        addBeltLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
         JLabel addClassLabel = new JLabel("Select Class from list");
-        addClassLabel.setFont(new Font("ARIAL", Font.PLAIN, 25));
+        addClassLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
         JPanel addStuPanel = new JPanel();
         addStuPanel.setLayout(new GridLayout(0, 1));
+        addStuPanel.add(addStuLabel);
         addStuPanel.add(addNameLabel);
         addStuPanel.add(addName);
         addStuPanel.add(addDobLabel);
@@ -101,6 +111,7 @@ public class TaekwondoView extends JFrame implements Observer {
         addStuPanel.add(addClassLabel);
         addStuPanel.add(classComboBox);
         addStuPanel.add(promptLabel);
+        promptLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
         addStuPanel.add(saveButton);
         addStuPanel.add(backButton);
         this.refresh(addStuPanel);
@@ -108,11 +119,17 @@ public class TaekwondoView extends JFrame implements Observer {
 
     public void editStudentMenu() {
         InputCleaner.cleanEditStudent(this);
-        JLabel editStuMsg = new JLabel("Enter Student Name to Edit");
+        JLabel editStudentLabel = new JLabel("Edit Student Menu", JLabel.CENTER);
+        editStudentLabel.setFont(new Font("ARIAL", Font.BOLD, 22));
+        JLabel editStuMsg = new JLabel("Enter Student Name to Edit (MAX 30 Characters)");
+        editStuMsg.setFont(new Font("ARIAL", Font.PLAIN, 22));
         JLabel edtitDetailLabel = new JLabel("Select detail to edit from list or delete student:");
-        JLabel detailInputLabel = new JLabel("Enter new value below:");
+        edtitDetailLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
+        JLabel detailInputLabel = new JLabel("Enter new value below (Or leave blank to delete):");
+        detailInputLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
         JPanel editStuPanel = new JPanel();
         editStuPanel.setLayout(new GridLayout(0, 1));
+        editStuPanel.add(editStudentLabel);
         editStuPanel.add(editStuMsg);
         editStuPanel.add(studentSearch);
         editStuPanel.add(edtitDetailLabel);
@@ -120,37 +137,46 @@ public class TaekwondoView extends JFrame implements Observer {
         editStuPanel.add(detailInputLabel);
         editStuPanel.add(detailInput);
         editStuPanel.add(promptLabel);
+        promptLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
         editStuPanel.add(confirmEditButton);
+        editStuPanel.add(deleteStuButton);
         editStuPanel.add(backButton);
         this.refresh(editStuPanel);
     }
 
     public void checkStudentListMenu() {
-        JLabel checkStuList = new JLabel("Check Student List");
+        JLabel checkStuList = new JLabel("Check Student List", JLabel.CENTER);
+        checkStuList.setFont(new Font("ARIAL", Font.BOLD, 22));
         JPanel checkStuPanel = new JPanel();
         checkStuPanel.setLayout(new GridLayout(0, 1));
         checkStuPanel.add(checkStuList);
         checkStuPanel.add(classComboBox);
         checkStuPanel.add(confirmCheckButton);
         checkStuPanel.add(stuList);
+        stuList.setFont(new Font("ARIAL", Font.PLAIN, 18));
         checkStuPanel.add(backButton);
         this.refresh(checkStuPanel);
     }
 
     public void checkUniformListMenu() {
         InputCleaner.cleanOrderMenu(this);
-        JLabel checkUniList = new JLabel("Check Uniform List");
+        JLabel checkUniList = new JLabel("Check Uniform List", JLabel.CENTER);
+        checkUniList.setFont(new Font("ARIAL", Font.BOLD, 22));
         JLabel uniformOrderLabel = new JLabel("Enter uniform order you wish to add/delete");
+        uniformOrderLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
         JLabel uniformSizeLabel = new JLabel("Select Uniform below (in cm):");
+        uniformSizeLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
         JPanel checkUniPanel = new JPanel();
         checkUniPanel.setLayout(new GridLayout(0, 1));
         checkUniPanel.add(checkUniList);
         checkUniPanel.add(uniformList);
+        uniformList.setFont(new Font("ARIAL", Font.PLAIN, 18));
         checkUniPanel.add(uniformOrderLabel);
         checkUniPanel.add(uniformOrder);
         checkUniPanel.add(uniformSizeLabel);
         checkUniPanel.add(uniformComboBox);
         checkUniPanel.add(promptLabel);
+        promptLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
         checkUniPanel.add(addUniformButton);
         checkUniPanel.add(deleteUniformButton);
         checkUniPanel.add(backButton);
@@ -160,41 +186,33 @@ public class TaekwondoView extends JFrame implements Observer {
     public void addActionListener(ActionListener listener) {
         this.newStuButton.addActionListener(listener);
         this.newStuButton.setActionCommand("ADDMENU");
-
         this.editStuButton.addActionListener(listener);
         this.editStuButton.setActionCommand("EDITMENU");
-
         this.checkStuButton.addActionListener(listener);
         this.checkStuButton.setActionCommand("STUDENTMENU");
-
         this.checkUniButton.addActionListener(listener);
         this.checkUniButton.setActionCommand("UNIFORMMENU");
-
         this.quitButton.addActionListener(listener);
         this.quitButton.setActionCommand("QUIT");
-
         this.backButton.addActionListener(listener);
         this.backButton.setActionCommand("MENU");
-
         this.saveButton.addActionListener(listener);
         this.saveButton.setActionCommand("ADDSTUDENT");
-
         this.confirmCheckButton.addActionListener(listener);
         this.confirmCheckButton.setActionCommand("CHECKCLASS");
-
         this.confirmEditButton.addActionListener(listener);
         this.confirmEditButton.setActionCommand("EDITSTUDENT");
-
         this.addUniformButton.addActionListener(listener);
         this.addUniformButton.setActionCommand("ADDUNIFORM");
-
         this.deleteUniformButton.addActionListener(listener);
         this.deleteUniformButton.setActionCommand("DELETEUNIFORM");
+        this.deleteStuButton.addActionListener(listener);
+        this.deleteStuButton.setActionCommand("DELETESTUDENT");
     }
 
     public void quitApp() {
-        JLabel quitMsg = new JLabel("Program has exited");
-        quitMsg.setFont(new Font("ARIAL", Font.PLAIN, 25));
+        JLabel quitMsg = new JLabel("Program has exited", JLabel.CENTER);
+        quitMsg.setFont(new Font("ARIAL", Font.BOLD, 50));
         JPanel exitPanel = new JPanel();
         exitPanel.setLayout(new GridLayout(1, 1));
         exitPanel.add(quitMsg);
@@ -215,6 +233,7 @@ public class TaekwondoView extends JFrame implements Observer {
         this.getUpdate(data, this, Update.valueOf(data.update));
     }
 
+    //Helper function that gets the intended update
     private void getUpdate(TaekwondoData data, TaekwondoView view, Update update) {
         update.execute(data, view);
     }

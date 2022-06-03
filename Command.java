@@ -14,38 +14,18 @@ public enum Command {
             model.addStudent();
         }
     },
-    EDITMENU {
-        @Override
-        public void execute(TaekwondoModel model, TaekwondoView view) {
-            model.editStudent();
-        }
-    },
-    QUIT {
-        @Override
-        public void execute(TaekwondoModel model, TaekwondoView view) {
-            model.quitApp();
-        }
-    },
-    UNIFORMMENU {
-        @Override
-        public void execute(TaekwondoModel model, TaekwondoView view) {
-            model.checkUniformList();
-        }
-    },
-    STUDENTMENU {
-        @Override
-        public void execute(TaekwondoModel model, TaekwondoView view) {
-            model.checkStudentList();
-        }
-    },
     ADDSTUDENT {
         @Override
         public void execute(TaekwondoModel model, TaekwondoView view) {
-            String name = view.addName.getText();
-            String dateOfBirth = view.addDOB.getText();
-            String email = view.addEmail.getText();
-            int phone = Integer.parseInt(view.addPhone.getText());
-            if (DataValidator.checkData(dateOfBirth, email, name, phone)) {
+            String name;
+            String dateOfBirth;
+            String email;
+            int phone;
+            if (DataValidator.checkData(view.addDOB.getText(), view.addEmail.getText(), view.addName.getText(), view.addPhone.getText())) {
+                name = view.addName.getText();
+                dateOfBirth = view.addDOB.getText();
+                email = view.addEmail.getText();
+                phone = Integer.parseInt(view.addPhone.getText());
                 String belt = (String) view.beltComboBox.getSelectedItem();
                 String joiningDate = LocalDate.now().toString();
                 String chosenClass = (String) view.classComboBox.getSelectedItem();
@@ -53,13 +33,14 @@ public enum Command {
             }
         }
     },
-    EDITSTUDENT {
+    ADDUNIFORM {
         @Override
         public void execute(TaekwondoModel model, TaekwondoView view) {
-            String name = view.studentSearch.getText();
-            String detail = (String) view.detailComboBox.getSelectedItem();
-            String newDetail = view.detailInput.getText();
-            model.editStudentDetail(name, detail, newDetail);
+            String uniformOrderName = view.uniformOrder.getText();
+            if (DataValidator.checkName(uniformOrderName)) {
+                int uniformSize = Integer.parseInt((String) view.uniformComboBox.getSelectedItem());
+                model.addUniformOrder(uniformOrderName, uniformSize);
+            }
         }
     },
     CHECKCLASS {
@@ -69,12 +50,13 @@ public enum Command {
             model.checkClassList(desiredClass);
         }
     },
-    ADDUNIFORM {
+    DELETESTUDENT {
         @Override
         public void execute(TaekwondoModel model, TaekwondoView view) {
-            String uniformOrderName = view.uniformOrder.getText();
-            int uniformSize = Integer.parseInt((String) view.uniformComboBox.getSelectedItem());
-            model.addUniformOrder(uniformOrderName, uniformSize);
+            String name = view.studentSearch.getText();
+            if (DataValidator.checkName(name)) {
+                model.deleteStudent(name);
+            }
         }
     },
     DELETEUNIFORM {
@@ -85,10 +67,45 @@ public enum Command {
             model.deleteUniformOrder(uniformOrderName, uniformSize);
         }
     },
+    EDITMENU {
+        @Override
+        public void execute(TaekwondoModel model, TaekwondoView view) {
+            model.editStudent();
+        }
+    },
+    EDITSTUDENT {
+        @Override
+        public void execute(TaekwondoModel model, TaekwondoView view) {
+            String name = view.studentSearch.getText();
+            if (DataValidator.checkName(name)) {
+                String detail = (String) view.detailComboBox.getSelectedItem();
+                String newDetail = view.detailInput.getText();
+                model.editStudentDetail(name, detail, newDetail);
+            }
+        }
+    },
     MENU {
         @Override
         public void execute(TaekwondoModel model, TaekwondoView view) {
             model.openMenu();
+        }
+    },
+    QUIT {
+        @Override
+        public void execute(TaekwondoModel model, TaekwondoView view) {
+            model.quitApp();
+        }
+    },
+    STUDENTMENU {
+        @Override
+        public void execute(TaekwondoModel model, TaekwondoView view) {
+            model.checkStudentList();
+        }
+    },
+    UNIFORMMENU {
+        @Override
+        public void execute(TaekwondoModel model, TaekwondoView view) {
+            model.checkUniformList();
         }
     };
 
