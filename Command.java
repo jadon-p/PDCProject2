@@ -8,12 +8,14 @@ import java.time.LocalDate;
  */
 public enum Command {
 
+    //Function: open the add student menu
     ADDMENU {
         @Override
         public void execute(TaekwondoModel model, TaekwondoView view) {
             model.addStudent();
         }
     },
+    //Function: Validates inputs then adds student to database
     ADDSTUDENT {
         @Override
         public void execute(TaekwondoModel model, TaekwondoView view) {
@@ -35,6 +37,7 @@ public enum Command {
             }
         }
     },
+    //Function: Validates inputs then adds order to database
     ADDUNIFORM {
         @Override
         public void execute(TaekwondoModel model, TaekwondoView view) {
@@ -47,6 +50,7 @@ public enum Command {
             }
         }
     },
+    //Function: Finds the list of students for any of the four classes
     CHECKCLASS {
         @Override
         public void execute(TaekwondoModel model, TaekwondoView view) {
@@ -54,6 +58,7 @@ public enum Command {
             model.checkClassList(desiredClass);
         }
     },
+    //Function: Validates the inputs then deletes the student from the database
     DELETESTUDENT {
         @Override
         public void execute(TaekwondoModel model, TaekwondoView view) {
@@ -65,6 +70,7 @@ public enum Command {
             }
         }
     },
+    //Function: Validates the inputs then deletes the order from the database
     DELETEUNIFORM {
         @Override
         public void execute(TaekwondoModel model, TaekwondoView view) {
@@ -78,12 +84,14 @@ public enum Command {
 
         }
     },
+    //Function: Opens the edit student menu
     EDITMENU {
         @Override
         public void execute(TaekwondoModel model, TaekwondoView view) {
             model.editStudent();
         }
     },
+    //Function: Validates the input then edits the chosen student's details
     EDITSTUDENT {
         @Override
         public void execute(TaekwondoModel model, TaekwondoView view) {
@@ -97,24 +105,28 @@ public enum Command {
             }
         }
     },
+    //Function: Open the menu
     MENU {
         @Override
         public void execute(TaekwondoModel model, TaekwondoView view) {
             model.openMenu();
         }
     },
+    //Function: Quit the program
     QUIT {
         @Override
         public void execute(TaekwondoModel model, TaekwondoView view) {
             model.quitApp();
         }
     },
+    //Function: Opens the student list menu
     STUDENTMENU {
         @Override
         public void execute(TaekwondoModel model, TaekwondoView view) {
             model.checkStudentList();
         }
     },
+    //Function: Open the uniform order menu
     UNIFORMMENU {
         @Override
         public void execute(TaekwondoModel model, TaekwondoView view) {

@@ -18,6 +18,7 @@ public class TaekwondoController implements ActionListener {
         this.view.addActionListener(this);
     }
 
+    //Function: Gets the requried command based on the action command
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();

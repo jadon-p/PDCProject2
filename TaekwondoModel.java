@@ -18,11 +18,13 @@ public class TaekwondoModel extends Observable {
         this.data = new TaekwondoData();
     }
 
+    //Function: Tells the Update enum to open the add student menu
     public void addStudent() {
         data.update = "ADDMENU";
         this.changeData();
     }
 
+    //Function: Checks if the order already exists, then tells the Update enum what to do based on this 
     public void addUniformOrder(String orderName, int orderSize) {
         boolean orderFound = this.database.checkOrder(orderName, orderSize);
         if (!orderFound) {
@@ -39,6 +41,7 @@ public class TaekwondoModel extends Observable {
         this.changeData();
     }
 
+    //Function: Updates the class list then gives this information to the Update enum
     public void checkClassList(String desiredClass) {
         ResultSet rs = this.database.getClassList(desiredClass);
         try {
@@ -52,17 +55,20 @@ public class TaekwondoModel extends Observable {
         this.changeData();
     }
 
+    //Function: Tells the Update enum to open the student list menu
     public void checkStudentList() {
         data.update = "STUDENTMENU";
         this.changeData();
     }
 
+    //Function: Tells the Update enum to open the order list menu
     public void checkUniformList() {
         this.addOrderList();
         data.update = "UNIFORMMENU";
         this.changeData();
     }
 
+    //Function: Checks if the student exists then tells the Update Enum what to do based on this
     public void deleteStudent(String name) {
         boolean studentFound = this.database.checkName(name);
         if (studentFound) {
@@ -77,6 +83,7 @@ public class TaekwondoModel extends Observable {
         this.changeData();
     }
 
+    //Function: Checks if the order exists, then tells the update Enum what to do based on this
     public void deleteUniformOrder(String orderName, int orderSize) {
         boolean orderFound = this.database.checkOrder(orderName, orderSize);
         if (orderFound) {
@@ -92,11 +99,13 @@ public class TaekwondoModel extends Observable {
         this.changeData();
     }
 
+    //Function: Tells the Update enum to open the edit student menu
     public void editStudent() {
         data.update = "EDITMENU";
         this.changeData();
     }
 
+    //Function: Checks if the student exists then tells the update enum what to do based on this
     public void editStudentDetail(String name, String detail, String newDetail) {
         boolean studentFound = this.database.checkName(name);
         if (studentFound) {
@@ -112,17 +121,20 @@ public class TaekwondoModel extends Observable {
         this.changeData();
     }
 
+    //Function: Tells the Update enum to open the menu
     public void openMenu() {
         data.update = "MENU";
         this.changeData();
     }
 
+    //Function: Tells the Update enum to print an error
     public void printError(String error) {
         data.error = error.toUpperCase();
         data.update = "ERROR";
         this.changeData();
     }
 
+    //Function: Tells the Update enum to open the quit page
     public void quitApp() {
         data.update = "QUIT";
         this.changeData();

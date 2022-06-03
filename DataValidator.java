@@ -9,6 +9,7 @@ import java.time.LocalDate;
  */
 public class DataValidator {
 
+    //Function: validates all the data, if all are true, this function returns true
     public static boolean checkData(String dob, String email, String name, String phone) {
         boolean valid = false;
         if (checkDate(dob) && checkEmail(email) && checkName(name) && checkPhone(phone)) {
@@ -17,6 +18,7 @@ public class DataValidator {
         return valid;
     }
 
+    //Function: Ensures the input matches the wanted date format
     protected static boolean checkDate(String dob) {
         boolean dateValid = false;
         try {
@@ -35,7 +37,7 @@ public class DataValidator {
         }
         return dateValid;
     }
-
+    //Function: Ensures that the input mathes the wanted email format
     protected static boolean checkEmail(String email) {
         boolean emailValid = false;
         if (!isEmpty(email) && email.length() < 30 && email.contains("@")) {
@@ -43,7 +45,7 @@ public class DataValidator {
         }
         return emailValid;
     }
-
+    //Function: Ensures that the input matches the wanted name format
     public static boolean checkName(String name) {
         boolean nameValid = false;
         if (!isEmpty(name) && name.length() < 30) {
@@ -52,6 +54,7 @@ public class DataValidator {
         return nameValid;
     }
 
+    //Function: Ensures that the input matches the wanted phone format
     protected static boolean checkPhone(String phone) {
         boolean phoneValid = false;
         try {

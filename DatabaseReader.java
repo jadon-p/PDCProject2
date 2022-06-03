@@ -12,6 +12,7 @@ import java.sql.Statement;
  */
 public class DatabaseReader {
 
+    //Function: Checks the database for the desired name
     public boolean checkName(String name, Connection conn) {
         boolean studentFound = false;
         try {
@@ -27,6 +28,7 @@ public class DatabaseReader {
         return studentFound;
     }
 
+    //Function: Checks the database for the desired order
     public boolean checkOrder(String name, int size, Connection conn) {
         boolean uniformFound = false;
         try {
@@ -42,6 +44,7 @@ public class DatabaseReader {
         return uniformFound;
     }
 
+    //Function: Checks the database to see if the table already exists
     public boolean checkTableExisting(String newTableName, Connection conn) {
         boolean tableFound = false;
         try {
@@ -61,6 +64,7 @@ public class DatabaseReader {
         return tableFound;
     }
 
+    //Function: Gets the student list from the desired class
     public ResultSet getClassList(String chosenClass, Connection conn) {
         ResultSet rs = null;
         Statement statement;
@@ -74,6 +78,7 @@ public class DatabaseReader {
         return rs;
     }
 
+    //Function: Gets the order list from the database
     public ResultSet getUniformList(Connection conn) {
         ResultSet rs = null;
         Statement statement;

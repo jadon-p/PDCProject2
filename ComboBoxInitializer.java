@@ -8,6 +8,7 @@ import javax.swing.JComboBox;
  */
 public class ComboBoxInitializer {
 
+    //Adds belt to the beltCombobBox
     public static void beltComboBox(JComboBox comboBox) {
         comboBox.addItem("White");
         comboBox.addItem("Yellow Tip");
@@ -22,6 +23,7 @@ public class ComboBoxInitializer {
         comboBox.addItem("Black");
     }
 
+    //Adds the class names to the classComboBox
     public static void classComboBox(JComboBox comboBox) {
         comboBox.addItem("LittleKiwi");
         comboBox.addItem("Dragon");
@@ -29,6 +31,7 @@ public class ComboBoxInitializer {
         comboBox.addItem("Adults");
     }
 
+    //Adds the details to the details CombobBox
     public static void detailComboBox(JComboBox comboBox) {
         comboBox.addItem("Name");
         comboBox.addItem("Date of Birth");
@@ -38,6 +41,7 @@ public class ComboBoxInitializer {
         comboBox.addItem("Class");
     }
 
+    //Adds the uniform sizes to the uniformComboBox
     public static void uniformComboBox(JComboBox comboBox) {
         comboBox.addItem("100");
         comboBox.addItem("110");
