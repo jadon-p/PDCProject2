@@ -43,7 +43,7 @@ public class DatabaseReader {
     }
 
     public boolean checkTableExisting(String newTableName, Connection conn) {
-        boolean flag = false;
+        boolean tableFound = false;
         try {
             String[] types = {"TABLE"};
             DatabaseMetaData dbmd = conn.getMetaData();
@@ -51,14 +51,14 @@ public class DatabaseReader {
             while (rsDBMeta.next()) {
                 String tableName = rsDBMeta.getString("TABLE_NAME");
                 if (tableName.compareToIgnoreCase(newTableName) == 0) {
-                    flag = true;
+                    tableFound = true;
                 }
             }
             rsDBMeta.close();
         } catch (SQLException ex) {
             System.out.println(ex);
         }
-        return flag;
+        return tableFound;
     }
 
     public ResultSet getClassList(String chosenClass, Connection conn) {

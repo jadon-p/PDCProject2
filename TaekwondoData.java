@@ -10,6 +10,7 @@ public class TaekwondoData {
 
     public ArrayList classList = new ArrayList();
     public ArrayList uniformOrders = new ArrayList();
+    public String error = "";
     public String status = "";
     public String update = "";
 }

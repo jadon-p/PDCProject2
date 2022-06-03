@@ -31,8 +31,12 @@ public class TaekwondoModel extends Observable {
             this.addOrderList();
             data.update = "ADDORDER";
             data.status = "SUCCESS";
-            this.changeData();
+        } else {
+            data.status = "FAIL";
+            data.error = "UNIFORM ORDER ALREADY EXISTS";
+            data.update = "ERROR";
         }
+        this.changeData();
     }
 
     public void checkClassList(String desiredClass) {
@@ -41,8 +45,8 @@ public class TaekwondoModel extends Observable {
             while (rs.next()) {
                 data.classList.add(rs.getString(1));
             }
-        } catch (SQLException ex) {
-            System.out.println(ex);
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         data.update = "CHECKCLASS";
         this.changeData();
@@ -63,9 +67,11 @@ public class TaekwondoModel extends Observable {
         boolean studentFound = this.database.checkName(name);
         if (studentFound) {
             this.database.removeStudent(name);
+        } else {
+            data.status = "FAIL";
+            data.error = "STUDENT DOES NOT EXIST";
+            data.update = "ERROR";
         }
-        data.update = "DELETESTUDENT";
-        data.status = "SUCCESS";
         this.changeData();
     }
 
@@ -76,8 +82,12 @@ public class TaekwondoModel extends Observable {
             this.addOrderList();
             data.status = "SUCCESS";
             data.update = "DELETEORDER";
-            this.changeData();
+        } else {
+            data.status = "FAIL";
+            data.error = "UNIFORM ORDER DOES NOT EXIST";
+            data.update = "ERROR";
         }
+        this.changeData();
     }
 
     public void editStudent() {
@@ -89,14 +99,25 @@ public class TaekwondoModel extends Observable {
         boolean studentFound = this.database.checkName(name);
         if (studentFound) {
             this.database.editStudent(name, detail, newDetail);
+            data.update = "EDITSTUDENT";
+            data.status = "SUCCESS";
+        } else {
+            data.status = "FAIL";
+            data.error = "STUDENT DOES NOT EXIST";
+            data.update = "ERROR";
         }
-        data.update = "EDITSTUDENT";
-        data.status = "SUCCESS";
+
         this.changeData();
     }
 
     public void openMenu() {
         data.update = "MENU";
+        this.changeData();
+    }
+
+    public void printError(String error) {
+        data.error = error.toUpperCase();
+        data.update = "ERROR";
         this.changeData();
     }
 
@@ -111,8 +132,12 @@ public class TaekwondoModel extends Observable {
             this.database.saveStudent(name, dob, email, phone, belt, joiningDate, chosenClass);
             data.update = "SAVE";
             data.status = "SUCCESS";
-            this.changeData();
+        } else {
+            data.status = "FAIL";
+            data.error = "STUDENT ALREADY EXISTS";
+            data.update = "ERROR";
         }
+        this.changeData();
     }
 
     //Helper function that notifies observers
@@ -128,8 +153,8 @@ public class TaekwondoModel extends Observable {
             while (rs.next()) {
                 data.uniformOrders.add(rs.getString(1) + " " + rs.getString(2) + "cm");
             }
-        } catch (SQLException ex) {
-            System.out.println(ex);
+        } catch (SQLException e) {
+            System.out.println(e);
         }
     }
 }

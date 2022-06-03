@@ -30,6 +30,8 @@ public enum Command {
                 String joiningDate = LocalDate.now().toString();
                 String chosenClass = (String) view.classComboBox.getSelectedItem();
                 model.saveStudent(name, dateOfBirth, email, phone, belt, joiningDate, chosenClass);
+            } else {
+                model.printError("Data invalid! Please ensure data has correct format");
             }
         }
     },
@@ -40,6 +42,8 @@ public enum Command {
             if (DataValidator.checkName(uniformOrderName)) {
                 int uniformSize = Integer.parseInt((String) view.uniformComboBox.getSelectedItem());
                 model.addUniformOrder(uniformOrderName, uniformSize);
+            } else {
+                model.printError("Name is empty");
             }
         }
     },
@@ -56,6 +60,8 @@ public enum Command {
             String name = view.studentSearch.getText();
             if (DataValidator.checkName(name)) {
                 model.deleteStudent(name);
+            } else {
+                model.printError("Name is empty");
             }
         }
     },
@@ -63,8 +69,13 @@ public enum Command {
         @Override
         public void execute(TaekwondoModel model, TaekwondoView view) {
             String uniformOrderName = view.uniformOrder.getText();
-            int uniformSize = Integer.parseInt((String) view.uniformComboBox.getSelectedItem());
-            model.deleteUniformOrder(uniformOrderName, uniformSize);
+            if (DataValidator.checkName(uniformOrderName)) {
+                int uniformSize = Integer.parseInt((String) view.uniformComboBox.getSelectedItem());
+                model.deleteUniformOrder(uniformOrderName, uniformSize);
+            } else {
+                model.printError("Name is empty");
+            }
+
         }
     },
     EDITMENU {
@@ -81,6 +92,8 @@ public enum Command {
                 String detail = (String) view.detailComboBox.getSelectedItem();
                 String newDetail = view.detailInput.getText();
                 model.editStudentDetail(name, detail, newDetail);
+            } else {
+                model.printError("Name is empty");
             }
         }
     },

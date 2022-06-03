@@ -22,7 +22,7 @@ public enum Update {
                 view.checkUniformListMenu();
                 view.promptLabel.setText("Order Was Added");
                 data.uniformOrders = new ArrayList();
-            } 
+            }
             data.update = "";
             data.status = "";
         }
@@ -78,6 +78,13 @@ public enum Update {
             data.update = "";
         }
     },
+    ERROR {
+        @Override
+        public void execute(TaekwondoData data, TaekwondoView view) {
+            view.promptLabel.setText(data.error);
+            this.clearData(data);
+        }
+    },
     MENU {
         @Override
         public void execute(TaekwondoData data, TaekwondoView view) {
@@ -123,4 +130,10 @@ public enum Update {
     };
 
     public abstract void execute(TaekwondoData data, TaekwondoView view);
+
+    protected void clearData(TaekwondoData data) {
+        data.error = "";
+        data.update = "";
+        data.status = "";
+    }
 }

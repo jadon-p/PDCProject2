@@ -1,5 +1,6 @@
 package src;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 /**
@@ -16,11 +17,10 @@ public class DataValidator {
         return valid;
     }
 
-    private static boolean checkDate(String dob) {
+    protected static boolean checkDate(String dob) {
         boolean dateValid = false;
         try {
             String[] temp = dob.split("-");
-            System.out.println(temp.length);
             if (temp.length == 3) {
                 int day = Integer.parseInt(temp[0]);
                 int month = Integer.parseInt(temp[1]);
@@ -30,13 +30,13 @@ public class DataValidator {
                     dateValid = true;
                 }
             }
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException E) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException | DateTimeException E) {
             dateValid = false;
         }
         return dateValid;
     }
 
-    private static boolean checkEmail(String email) {
+    protected static boolean checkEmail(String email) {
         boolean emailValid = false;
         if (!isEmpty(email) && email.length() < 30 && email.contains("@")) {
             emailValid = true;
@@ -52,7 +52,7 @@ public class DataValidator {
         return nameValid;
     }
 
-    private static boolean checkPhone(String phone) {
+    protected static boolean checkPhone(String phone) {
         boolean phoneValid = false;
         try {
             int temp = Integer.parseInt(phone);

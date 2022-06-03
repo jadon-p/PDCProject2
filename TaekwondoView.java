@@ -55,7 +55,6 @@ public class TaekwondoView extends JFrame implements Observer {
         this.setSize(600, 800);
         this.setResizable(false);
         this.menu();
-        this.add(menuPanel);
         this.setVisible(true);
 
         ComboBoxInitializer.beltComboBox(beltComboBox);
@@ -71,6 +70,7 @@ public class TaekwondoView extends JFrame implements Observer {
     public void menu() {
         this.menuPanel.setLayout(new GridLayout(5, 1));
         this.promptLabel.setText("");
+        promptLabel.setFont(new Font("ARIAL", Font.BOLD, 18));
         this.menuPanel.add(newStuButton);
         this.menuPanel.add(editStuButton);
         this.menuPanel.add(checkStuButton);
@@ -111,7 +111,6 @@ public class TaekwondoView extends JFrame implements Observer {
         addStuPanel.add(addClassLabel);
         addStuPanel.add(classComboBox);
         addStuPanel.add(promptLabel);
-        promptLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
         addStuPanel.add(saveButton);
         addStuPanel.add(backButton);
         this.refresh(addStuPanel);
@@ -137,7 +136,6 @@ public class TaekwondoView extends JFrame implements Observer {
         editStuPanel.add(detailInputLabel);
         editStuPanel.add(detailInput);
         editStuPanel.add(promptLabel);
-        promptLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
         editStuPanel.add(confirmEditButton);
         editStuPanel.add(deleteStuButton);
         editStuPanel.add(backButton);
@@ -162,8 +160,8 @@ public class TaekwondoView extends JFrame implements Observer {
         InputCleaner.cleanOrderMenu(this);
         JLabel checkUniList = new JLabel("Check Uniform List", JLabel.CENTER);
         checkUniList.setFont(new Font("ARIAL", Font.BOLD, 22));
-        JLabel uniformOrderLabel = new JLabel("Enter uniform order you wish to add/delete");
-        uniformOrderLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
+        JLabel uniformOrderLabel = new JLabel("Enter uniform order you wish to add/delete (No Duplicate Orders Allowed)");
+        uniformOrderLabel.setFont(new Font("ARIAL", Font.BOLD, 17));
         JLabel uniformSizeLabel = new JLabel("Select Uniform below (in cm):");
         uniformSizeLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
         JPanel checkUniPanel = new JPanel();
@@ -176,7 +174,6 @@ public class TaekwondoView extends JFrame implements Observer {
         checkUniPanel.add(uniformSizeLabel);
         checkUniPanel.add(uniformComboBox);
         checkUniPanel.add(promptLabel);
-        promptLabel.setFont(new Font("ARIAL", Font.PLAIN, 22));
         checkUniPanel.add(addUniformButton);
         checkUniPanel.add(deleteUniformButton);
         checkUniPanel.add(backButton);
